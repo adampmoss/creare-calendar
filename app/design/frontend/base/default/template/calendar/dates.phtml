@@ -1,0 +1,48 @@
+<div class="page-title">
+<button type="submit" title="Add New" class="button right" onclick="location.href='<?php echo $this->getUrl('*/*/new') ?>'"><span><span>Add New</span></span></button>
+    <h1><?php echo $this->__('My Calendar Dates') ?></h1>
+</div>
+
+<table class="data-table" id="dates-table">
+<thead>
+	<tr>
+    	<td><?php echo $this->__('Event Name') ?></td><td><?php echo $this->__('Date') ?></td><td><?php echo $this->__('Remind In Advance') ?></td><td class="hide"></td>
+    </tr>
+</thead>
+<?php foreach ($this->getDates() as $date) : ?>
+
+<tr>
+	<td><?php echo $date->getEventName() ?></td>
+	<td><?php if ($date->getYearly()) { echo $this->__('Yearly on '); } echo Mage::helper('calendar')->dateFormat($date->getDate(), $date->getYearly()) ?></td>
+    <td><?php echo Mage::helper('calendar')->reminder($date->getReminder()) ?></td>
+    <td class="hide"><a href="<?php echo $this->getUrl('*/*/edit', array("id" => $date->getId())) ?>"><?php echo $this->__('Edit') ?></a></td>
+</tr>
+<?php endforeach ?>
+</table>
+
+<script type="text/javascript">
+
+/* Not for release in extension version */
+
+	jQuery(document).ready(function($) {
+		
+		$('#dates-table tr').click(function() {
+			var href = $(this).find("a").attr("href");
+			if(href) {
+				window.location = href;
+			}
+		});
+		
+		$("#dates-table tr").not(':first').hover(
+		  function () {
+			$(this).css("background","#F8F7F2");
+		  }, 
+		  function () {
+			$(this).css("background","");
+		  }
+		);
+	});
+
+/* Not for release in extension version */
+
+</script>

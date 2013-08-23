@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout>
+  <adminhtml_calendar_index>
+    <reference name="content">
+      <block type="calendar/adminhtml_date" name="date" />
+    </reference>
+  </adminhtml_calendar_index>
+  <adminhtml_calendar_edit>
+    <reference name="content">
+      <block type="calendar/adminhtml_date_edit" name="date_edit" />
+    </reference>
+    <reference name="left">
+      <block type="calendar/adminhtml_date_edit_tabs" name="date_edit_tabs" />
+    </reference>
+  </adminhtml_calendar_edit>
+</layout>

@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<layout>
+  <customer_account>
+    <reference name="content">
+      <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml">
+        <action method="addLink" translate="label" module="customer">
+          <name>account</name>
+          <path>customer/account/</path>
+          <label>Account Dashboard</label>
+        </action>
+        <action method="addLink" translate="label" module="customer">
+          <name>account_edit</name>
+          <path>customer/account/edit/</path>
+          <label>Account Information</label>
+        </action>
+        <action method="addLink" translate="label" module="customer">
+          <name>address_book</name>
+          <path>customer/address/</path>
+          <label>Address Book</label>
+        </action>
+        <action method="addLink" translate="label" module="sales">
+          <name>orders</name>
+          <path>sales/order/history/</path>
+          <label>Recent Orders</label>
+        </action>
+        <action method="addLink" translate="label" module="review">
+          <name>reviews</name>
+          <path>review/customer</path>
+          <label>My Reviews</label>
+        </action>
+       <!-- <action method="addLink" translate="label" module="tag">
+          <name>tags</name>
+          <path>tag/customer/</path>
+          <label>My Tags</label>
+        </action>
+        <action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active">
+          <name>wishlist</name>
+          <path>wishlist/</path>
+          <label>My Wishlist</label>
+        </action>-->
+        <action method="addLink" translate="label" module="newsletter">
+          <name>newsletter</name>
+          <path>newsletter/manage/</path>
+          <label>Newsletter</label>
+        </action>
+        <action method="addLink" translate="label" module="customer">
+          <name>calendar</name>
+          <path>calendar/dates</path>
+          <label>Dates Calendar</label>
+        </action>
+      </block>
+    </reference>
+  </customer_account>
+  <calendar_dates_index translate="label">
+  <reference name="head">
+	<action method="setTitle"><title>My Calendar Dates</title></action>
+		<action method="addCss"><stylesheet>css/creare/calendar.css</stylesheet></action>
+	</reference>
+    <update handle="customer_account" />
+    <reference name="my.account.wrapper">
+      <block type="calendar/dates" name="calendar.dates" template="calendar/dates.phtml" />
+    </reference>
+  </calendar_dates_index>
+  
+  <calendar_dates_edit translate="label">
+    <update handle="customer_account" />
+	<reference name="head">
+		<action method="addCss"><stylesheet>css/creare/calendar.css</stylesheet></action>
+		<!--<action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name></action>-->
+        <action method="addItem"><type>js</type><name>calendar/calendar.js</name></action>
+        <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name></action>
+	</reference>
+    <reference name="my.account.wrapper">
+	<block type="core/html_calendar" name="head.calendar" as="calendar" template="page/js/calendar.phtml"/>
+      <block type="calendar/dates_edit" name="edit.calendar.dates" template="calendar/dates/edit.phtml" />
+    </reference>
+  </calendar_dates_edit>
+  
+</layout>

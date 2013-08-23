@@ -1,0 +1,78 @@
+<?php $date = $this->getCalendarDate() ?>
+
+<div class="page-title">
+<?php if ($date->getId()) : ?>
+<button type="submit" title="<?php echo $this->__('Delete') ?>" class="button right" onclick="javascript:deleteDate()"><span><span><?php echo $this->__('Delete') ?></span></span></button>
+<?php endif ?>
+    <h1><?php echo $this->getTitle($date) ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+<div class="box-account">
+<form action="<?php echo $this->getUrl('*/*/save', array("id" => $date->getId())) ?>" method="post" id="form-validate">
+    <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <ul class="form-list">
+            <li class="fields">
+            	<div class="field">
+                <label for="event_name" class="required"><em>*</em><?php echo $this->__('Event Name') ?></label>
+                <div class="input-box">
+                    <input type="text" name="event_name" id="event_name" value="<?php echo $date->getEventName() ?>" title="<?php echo $this->__('Event Name') ?>" class="input-text required-entry" />
+                </div>
+                </div>
+                <div class="field">
+                <label for="date" class="required"><em>*</em><?php echo $this->__('Date') ?></label>
+                <div class="input-box">
+                    <input type="text" readonly="readonly" name="date" id="date" value="<?php echo $date->getDate() ?>" title="<?php echo $this->__('Date') ?>" class="input-text required-entry validate-date date-field" />
+                    <i class="icon-calendar v-middle calendar-press" id="date_trig"></i>
+                </div>
+                </div>
+            </li>
+            <li class="fields">
+            	<div class="field">
+                <label for="email" class="required"><em>*</em><?php echo $this->__('Remind me of this event [...] days before') ?></label>
+                <div class="input-box">
+                    <input type="text" name="reminder" id="reminder" value="<?php echo $date->getReminder() ?>" title="<?php echo $this->__('Event Name') ?>" class="input-text required-entry validate-greater-than-zero" />
+                </div>
+                </div>
+                <div class="field">
+                <label for="yearly" class="required"><?php echo $this->__('Is this a yearly event?') ?></label>
+                <div class="input-box">
+                    <input type="checkbox"<?php if ($date->getYearly()) { ?> checked<?php } ?> name="yearly" id="yearly" value="1" title="<?php echo $this->__('Yearly?') ?>" class="input-checkbox" />
+                </div>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <p class="back-link"><a href="<?php echo $this->getUrl('*/*') ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        <button type="submit" title="<?php echo $this->__('Save') ?>" class="button"><span><span><?php echo $this->__('Save') ?></span></span></button>
+    </div>
+</form>
+</div>
+<script type="text/javascript">
+//<![CDATA[
+    var dataForm = new VarienForm('form-validate', true);
+	
+	function deleteDate()
+	{
+		var agree=confirm("<?php echo $this->__('Are you sure you want to delete '.$date->getEventName()).'?' ?>");
+		
+		if (agree)
+			location.href='<?php echo $this->getUrl('*/*/delete', array('id' => $date->getId())) ?>';
+		else
+			return false;
+	}
+	
+	Calendar.setup({
+		inputField: "date",
+		ifFormat: "%Y-%m-%d",
+		showsTime: false,
+		button: "date_trig",
+		align: "Bl",
+		singleClick : true
+	});
+	
+//]]>
+</script>
